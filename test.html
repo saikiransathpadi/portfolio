@@ -178,7 +178,7 @@
             position: relative;
             opacity: 0;
             transform: perspective(1000px) rotateY(-90deg);
-            transition: transform 0.8s ease, opacity 0.8s ease, box-shadow 0.3s ease, scale 0.3s ease;
+            transition: transform 0.8s ease, opacity 0.8s ease, box-shadow 0.3s ease, scale 0.0s ease;
             overflow: hidden;
         }
 
@@ -196,12 +196,8 @@
         }
 
         .education .edu:hover::before {
-            transform: translateX(100%);
-        }
-
-        .education .edu:hover {
-            transform: perspective(1000px) rotateY(0deg) scale(1.05);
-            box-shadow: 0 8px 30px rgba(45, 212, 191, 0.3);
+            transform: translateY(100%);
+            box-shadow: 0 0 20px rgba(45, 212, 191, 0.3);
             border: 1px solid rgba(243, 198, 128, 0.5);
         }
 
@@ -461,14 +457,14 @@
             z-index: 1;
         }
 
-        /* Expertise and Skills Sections */
-        .expertise-grid, .skills-grid {
+        /* Expertise Section */
+        .expertise-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1rem;
         }
 
-        .expertise-card, .skill-card {
+        .expertise-card {
             background: rgba(243, 198, 128, 0.1);
             padding: 1.5rem;
             border-radius: 10px;
@@ -480,7 +476,7 @@
             overflow: hidden;
         }
 
-        .expertise-card::before, .skill-card::before {
+        .expertise-card::before {
             content: '';
             position: absolute;
             top: 0;
@@ -492,16 +488,73 @@
             transition: transform 0.4s ease;
         }
 
-        .expertise-card:hover::before, .skill-card:hover::before {
+        .expertise-card:hover::before {
             transform: translateX(100%);
         }
 
-        .expertise-card.visible, .skill-card.visible {
+        .expertise-card.visible {
             transform: scale(1);
             opacity: 1;
         }
 
-        .expertise-card:hover, .skill-card:hover {
+        .expertise-card:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Skills Section (Tabular) */
+        .skills-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(31, 37, 39, 0.9);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 1rem;
+        }
+
+        .skills-table th {
+            background: rgba(45, 212, 191, 0.15);
+            color: #2dd4bf;
+            padding: 1rem;
+            font-size: 1.1rem;
+            text-align: left;
+            border-bottom: 2px solid rgba(243, 198, 128, 0.2);
+            width: 25%;
+        }
+
+        .skill-cell {
+            background: rgba(243, 198, 128, 0.05);
+            padding: 1rem;
+            border: 1px solid rgba(243, 198, 128, 0.1);
+            color: #d4d4d8;
+            opacity: 0;
+            transform: scale(0.7);
+            transition: transform 0.6s ease, opacity 0.6s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-cell::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(243, 198, 128, 0.3), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+        }
+
+        .skill-cell:hover::before {
+            transform: translateX(100%);
+        }
+
+        .skill-cell.visible {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .skill-cell:hover {
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         }
 
@@ -604,6 +657,17 @@
                 font-size: 2rem;
             }
 
+            .skills-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            .skills-table th, .skill-cell {
+                padding: 0.8rem;
+                font-size: 0.95rem;
+            }
+
             .education .edu, .experience .job, .projects .project {
                 padding: 1.2rem;
             }
@@ -640,7 +704,6 @@
                 Messaging Queues, REST, Unit and Functional Testing, Git etc</p>
         </div>
     </section>
-
 
     <section id="experience" class="experience">
         <h2>Experience</h2>
@@ -773,20 +836,54 @@
     <section id="skills" class="skills">
         <h2>Technical Acumen</h2>
         <div class="section-content">
-            <div class="skills-grid">
-                <div class="skill-card">Python</div>
-                <div class="skill-card">SQL</div>
-                <div class="skill-card">NoSQL</div>
-                <div class="skill-card">REST APIs</div>
-                <div class="skill-card">Redis</div>
-                <div class="skill-card">AWS (Lambda, DynamoDB, API Gateway, WAF, CloudWatch, SDK)</div>
-                <div class="skill-card">Celery</div>
-                <div class="skill-card">Elasticsearch</div>
-                <div class="skill-card">Django</div>
-                <div class="skill-card">Flask</div>
-                <div class="skill-card">FastAPI</div>
-                <div class="skill-card">ETS</div>
-            </div>
+            <table class="skills-table">
+                <thead>
+                    <tr>
+                        <th>Programming Languages</th>
+                        <th>Frameworks</th>
+                        <th>Databases</th>
+                        <th>Other Tools</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="skill-cell">Python</td>
+                        <td class="skill-cell">Django</td>
+                        <td class="skill-cell">NoSQL</td>
+                        <td class="skill-cell">REST APIs</td>
+                    </tr>
+                    <tr>
+                        <td class="skill-cell">SQL</td>
+                        <td class="skill-cell">Flask</td>
+                        <td class="skill-cell">Redis</td>
+                        <td class="skill-cell">AWS (Lambda, ECS, EC2, S3, Cognito, EventBridge, Amplify, AppSync)</td>
+                    </tr>
+                    <tr>
+                        <td class="skill-cell">Node.js</td>
+                        <td class="skill-cell">FastAPI</td>
+                        <td class="skill-cell">Elasticsearch</td>
+                        <td class="skill-cell">RabbitMQ</td>
+                    </tr>
+                    <tr>
+                        <td class="skill-cell"></td>
+                        <td class="skill-cell">React.js</td>
+                        <td class="skill-cell">DynamoDB</td>
+                        <td class="skill-cell">Celery</td>
+                    </tr>
+                    <tr>
+                        <td class="skill-cell"></td>
+                        <td class="skill-cell"></td>
+                        <td class="skill-cell"></td>
+                        <td class="skill-cell">Git</td>
+                    </tr>
+                    <tr>
+                        <td class="skill-cell"></td>
+                        <td class="skill-cell"></td>
+                        <td class="skill-cell"></td>
+                        <td class="skill-cell">ETS</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </section>
 
@@ -809,7 +906,6 @@
             </div>
         </div>
     </section>
-
 
     <section id="contact" class="contact">
         <h2>Contact</h2>
@@ -839,11 +935,17 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
-                    const cards = entry.target.querySelectorAll('.edu, .job, .project, .achievement, .certification, .expertise-card, .skill-card');
+                    const cards = entry.target.querySelectorAll('.edu, .job, .project, .achievement, .certification, .expertise-card, .skill-cell');
                     cards.forEach((card, index) => {
                         setTimeout(() => {
                             card.classList.add('visible');
                         }, index * 200);
+                    });
+                } else {
+                    entry.target.classList.remove('visible');
+                    const cards = entry.target.querySelectorAll('.edu, .job, .project, .achievement, .certification, .expertise-card, .skill-cell');
+                    cards.forEach(card => {
+                        card.classList.remove('visible');
                     });
                 }
             });
