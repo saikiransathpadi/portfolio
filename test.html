@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saikiran Sathpad - Professional Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background: #1f2527;
+            color: #d4d4d8;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(22, 33, 38, 0.95);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        nav a {
+            color: #f3c680;
+            text-decoration: none;
+            margin: 0 1.5rem;
+            font-size: 1.1rem;
+            position: relative;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #f3c680;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: #2dd4bf;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #162126, #2a3942);
+            color: #d4d4d8;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M10,50 L90,50 M50,10 L50,90" stroke="rgba(243,198,128,0.2)" stroke-width="1"/></svg>') repeat;
+            animation: blueprintShift 30s linear infinite;
+            opacity: 0.2;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 700;
+            color: #f3c680;
+            animation: blueprintDraw 2s ease-out;
+            text-shadow: 0 0 10px rgba(243, 198, 128, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.6rem;
+            margin-top: 1rem;
+            color: #a1a1aa;
+            animation: fadeIn 2s ease-out 0.5s;
+            animation-fill-mode: both;
+        }
+
+        /* Section Styling */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #252b30;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .section-content {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .section-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #2dd4bf;
+            position: relative;
+            animation: blueprintDraw 1.5s ease-out;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            background: #f3c680;
+            bottom: -10px;
+            left: 0;
+            animation: extend 1s ease-out 0.5s forwards;
+        }
+
+        /* About Section */
+        .about {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about p {
+            line-height: 1.6;
+            color: #a1a1aa;
+        }
+
+        /* Education Section */
+        .education .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .education .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: linear-gradient(to bottom, #2dd4bf, #f3c680);
+        }
+
+        .education .edu {
+            background: rgba(243, 198, 128, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            position: relative;
+            opacity: 0;
+            transform: perspective(1000px) rotateY(-90deg);
+            transition: transform 0.8s ease, opacity 0.8s ease, box-shadow 0.3s ease, scale 0.3s ease;
+            overflow: hidden;
+        }
+
+        .education .edu::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(45, 212, 191, 0.2), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
+            z-index: 0;
+        }
+
+        .education .edu:hover::before {
+            transform: translateX(100%);
+        }
+
+        .education .edu:hover {
+            transform: perspective(1000px) rotateY(0deg) scale(1.05);
+            box-shadow: 0 8px 30px rgba(45, 212, 191, 0.3);
+            border: 1px solid rgba(243, 198, 128, 0.5);
+        }
+
+        .education .edu.visible {
+            transform: perspective(1000px) rotateY(0deg) scale(1);
+            opacity: 1;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .education .edu h3 {
+            color: #2dd4bf;
+            font-size: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .education .edu p {
+            color: #a1a1aa;
+            margin: 0.5rem 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Experience Section */
+        .experience .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .experience .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: linear-gradient(to bottom, #2dd4bf, #f3c680);
+        }
+
+        .experience .job {
+            background: rgba(243, 198, 128, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            position: relative;
+            opacity: 0;
+            transform: perspective(1000px) translateX(-100px) rotateX(-45deg);
+            transition: transform 0.8s ease, opacity 0.8s ease, box-shadow 0.3s ease, scale 0.3s ease;
+            overflow: hidden;
+        }
+
+        .experience .job::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(45, 212, 191, 0.2), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
+            z-index: 0;
+        }
+
+        .experience .job:hover::before {
+            transform: translateX(100%);
+        }
+
+        .experience .job:hover {
+            transform: perspective(1000px) translateX(0) rotateX(0deg) scale(1.05);
+            box-shadow: 0 8px 30px rgba(45, 212, 191, 0.3);
+            border: 1px solid rgba(243, 198, 128, 0.5);
+        }
+
+        .experience .job.visible {
+            transform: perspective(1000px) translateX(0) rotateX(0deg) scale(1);
+            opacity: 1;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .experience .job h3 {
+            color: #2dd4bf;
+            font-size: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .experience .job p, .experience .job li {
+            color: #a1a1aa;
+            margin: 0.5rem 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Projects Section */
+        .projects .project {
+            background: rgba(243, 198, 128, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            position: relative;
+            opacity: 0;
+            transform: perspective(1000px) rotateX(-45deg);
+            transition: transform 0.8s ease, opacity 0.8s ease, box-shadow 0.3s ease, scale 0.3s ease;
+            overflow: hidden;
+        }
+
+        .projects .project::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(45, 212, 191, 0.2), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
+            z-index: 0;
+        }
+
+        .projects .project:hover::before {
+            transform: translateX(100%);
+        }
+
+        .projects .project:hover {
+            transform: perspective(1000px) rotateX(0deg) scale(1.05);
+            box-shadow: 0 8px 30px rgba(45, 212, 191, 0.3);
+            border: 1px solid rgba(243, 198, 128, 0.5);
+        }
+
+        .projects .project.visible {
+            transform: perspective(1000px) rotateX(0deg) scale(1);
+            opacity: 1;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .projects .project h3 {
+            color: #2dd4bf;
+            font-size: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .projects .project p, .projects .project li {
+            color: #a1a1aa;
+            margin: 0.5rem 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .projects .project a {
+            color: #f3c680;
+            text-decoration: none;
+            margin-right: 1rem;
+            position: relative;
+            z-index: 1;
+            transition: color 0.3s ease;
+        }
+
+        .projects .project a:hover {
+            color: #2dd4bf;
+        }
+
+        /* Achievements Section */
+        .achievements .achievement {
+            background: rgba(243, 198, 128, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            position: relative;
+            opacity: 0;
+            transform: scale(0.7);
+            transition: transform 0.6s ease, opacity 0.6s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+
+        .achievements .achievement::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(243, 198, 128, 0.3), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+        }
+
+        .achievements .achievement:hover::before {
+            transform: translateX(100%);
+        }
+
+        .achievements .achievement.visible {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .achievements .achievement:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .achievements .achievement p {
+            color: #a1a1aa;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Certifications Section */
+        .certifications .certification {
+            background: rgba(243, 198, 128, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 10px;
+            position: relative;
+            opacity: 0;
+            transform: translateX(100px);
+            transition: transform 0.6s ease, opacity 0.6s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+
+        .certifications .certification::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(243, 198, 128, 0.3), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+        }
+
+        .certifications .certification:hover::before {
+            transform: translateX(100%);
+        }
+
+        .certifications .certification.visible {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .certifications .certification:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .certifications .certification h3 {
+            color: #2dd4bf;
+            font-size: 1.3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .certifications .certification p {
+            color: #a1a1aa;
+            margin: 0.5rem 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Expertise and Skills Sections */
+        .expertise-grid, .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .expertise-card, .skill-card {
+            background: rgba(243, 198, 128, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.7);
+            transition: transform 0.6s ease, opacity 0.6s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .expertise-card::before, .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(243, 198, 128, 0.3), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+        }
+
+        .expertise-card:hover::before, .skill-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .expertise-card.visible, .skill-card.visible {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .expertise-card:hover, .skill-card:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Contact Section */
+        .contact {
+            text-align: center;
+        }
+
+        .contact a {
+            color: #2dd4bf;
+            text-decoration: none;
+            margin: 0 1rem;
+            font-size: 1.1rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .contact a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #f3c680;
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        .contact a:hover::after {
+            width: 100%;
+        }
+
+        .contact a:hover {
+            color: #f3c680;
+        }
+
+        /* Animations */
+        @keyframes blueprintDraw {
+            0% {
+                clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+                opacity: 0;
+            }
+            50% {
+                clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+                opacity: 0.5;
+            }
+            100% {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes extend {
+            from {
+                width: 0;
+            }
+            to {
+                width: 50px;
+            }
+        }
+
+        @keyframes blueprintShift {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(100px, -100px);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero p {
+                font-size: 1.3rem;
+            }
+
+            nav a {
+                margin: 0 0.8rem;
+                font-size: 1rem;
+            }
+
+            section {
+                padding: 3rem 1rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            .education .edu, .experience .job, .projects .project {
+                padding: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#hero">Home</a>
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#education">Education</a>
+        <a href="#projects">Projects</a>
+        <!-- <a href="#achievements">Achievements</a> -->
+        <!-- <a href="#certifications">Certifications</a> -->
+        <a href="#skills">Skills</a>
+        <a href="#expertise">Expertise</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <section id="hero" class="hero">
+        <h1>Saikiran Sathpadi</h1>
+        <p>Passionate Software Engineer | Engineering Excellence</p>
+    </section>
+
+    <section id="about" class="about">
+        <h2>About Me</h2>
+        <div class="section-content">
+            <p>A Tech Enthusiast with 4+ years of hands-on experience in building and optimizing applications. Graduated from NIT
+                Calicut, Fueled by a passion for technology and innovation, skilled in adopting new tools and methodologies to tackle
+                complex challenges. Focused on delivering high-impact solutions that elevate user experience and system
+                performance. Aiming to advance in software engineering with a keen interest in development, architecture, and
+                cutting-edge engineering practices. Expertise in Python, Node JS, React JS, AWS, System architecture design, SQL,
+                Messaging Queues, REST, Unit and Functional Testing, Git etc</p>
+        </div>
+    </section>
+
+
+    <section id="experience" class="experience">
+        <h2>Experience</h2>
+        <div class="section-content">
+            <div class="timeline">
+                <div class="job">
+                    <h3>Techolution, Hyderabad (Client:- iHeartMedia, US)</h3>
+                    <p>Senior Software Engineer</p>
+                    <p>Oct 2023 - Present</p>
+                    <ul>
+                        <li>Led the Design and development of critical data processing workflows, managing millions of requests and significantly boosting system performance, scalability, and stability. </li>
+                        <li>Optimized a complex data migration process, reducing execution time from multiple days to just 2 hours. </li>
+                        <li>Improved query performance by 80% through the identification and resolution of database bottlenecks. </li>
+                        <li>Implemented new autoscaling policies in combination of Rabbit MQ and AWS ECS, ensuring resilience and uninterrupted service. </li>
+                        <li>Consistently delivered high-quality code while maintaining clear communication with stakeholders to ensure smooth project execution.</li>
+                    </ul>
+                </div>
+                <div class="job">
+                    <h3>Bijak (Krishnacharya Tech Pvt. Ltd.), Gurgaon, Haryana</h3>
+                    <p>Software Development Engineer - 1</p>
+                    <p>Jun 2021 - Sept 2023</p>
+                    <ul>
+                        <li>Developed mobile app backend from scratch actively participating in software architecture, development,deployment, resulting in 10,000+ users within one week of business release. </li>
+                        <li>Successfully integrating and interacting with AWS services like Lambda serverless, ECS, cloudwatch, DynamoDb, S3, EC2, Congnito, EventBridge, Amplify, AppSync Etc. </li>
+                        <li>Implemented performance optimizations for APIs/queries using redis, managing db connections etc., resulting 55-70% of improvement in application speed and user experience.</li>
+                        <li>Contributed to full-cycle implementation of stock management, order feedback, and other E-commerce mobile app features, from design to development and release. </li>
+                        <li>Constructed payment reconciliation to capture missing and delayed payments which helped operations team to optimize the efforts by 60%. </li>
+                        <li>Consistently engaged in end-toend product development, collaborating with cross-functional teams and following Agile methodologies for seamless execution. </li>
+                        <li>Provided impactful mentorship to interns/trainees, nurturing their skills and potential, resulting in a successful conversion to full-time positions. </li>
+                        <li>Conducting security testing and vulnerability assessments to identify threats like SQL-injections, data leakage etc</li>
+                    </ul>
+                </div>
+                <div class="job">
+                    <h3>BDFL Technologies Pvt. Ltd (The10xAcademy), Hyderabad</h3>
+                    <p>Software Development Engineer - 1</p>
+                    <p>Mar 2021 - Jun 2021</p>
+                    <ul>
+                        <li>Part of Driving and Mentoring the coding Bootcamp by gathering all the technical requirements resulted in 90%
+                            of the placements.</li>
+                        <li>Explored and involved in development of an Ed-tech platform built on Golang and ReactJs.</li>
+                    </ul>
+                </div>
+                <div class="job">
+                    <h3>Full Stack Developer (Apprenticeship) - BDFL Technologies Pvt. Ltd (The10xAcademy)</h3>
+                    <p>Sep 2020 - Feb 2021</p>
+                    <ul>
+                        <li>Gained hands-on experience in full-stack development.</li>
+                        <li>Contributed to various projects, focusing on application development and optimization.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="education" class="education">
+        <h2>Education</h2>
+        <div class="section-content">
+            <div class="timeline">
+                <div class="edu">
+                    <h3>Bachelor of Technology (ECE)</h3>
+                    <p>National Institute of Technology, Calicut (NIT)</p>
+                    <p>June 2016 - May 2020</p>
+                </div>
+                <div class="edu">
+                    <h3>Higher Secondary (MPC - 95.9)</h3>
+                    <p>Sri Chaitanya College, Guntur</p>
+                    <p>May 2014 - June 2016</p>
+                </div>
+                <div class="edu">
+                    <h3>Secondary School Certificate (9 CGPA)</h3>
+                    <p>Bell & Bennett High School</p>
+                    <p>May 2014</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="projects">
+        <h2>Projects</h2>
+        <div class="section-content">
+            <div class="project">
+                <h3>Project 1</h3>
+                <p>[Placeholder Description: Describe the project, its purpose, and key features. Highlight the problem solved and impact achieved.]</p>
+                <p><strong>Technologies Used:</strong> [Placeholder: List technologies, e.g., Python, Django, AWS, React]</p>
+                <p>
+                    <a href="[Placeholder: Insert GitHub link]" target="_blank">Source Code</a>
+                    <a href="[Placeholder: Insert live demo link]" target="_blank">Live Demo</a>
+                </p>
+            </div>
+            <div class="project">
+                <h3>Project 2</h3>
+                <p>[Placeholder Description: Describe the project, its purpose, and key features. Highlight the problem solved and impact achieved.]</p>
+                <p><strong>Technologies Used:</strong> [Placeholder: List technologies, e.g., Node.js, MongoDB, Express]</p>
+                <p>
+                    <a href="[Placeholder: Insert GitHub link]" target="_blank">Source Code</a>
+                    <a href="[Placeholder: Insert live demo link]" target="_blank">Live Demo</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- <section id="achievements" class="achievements">
+        <h2>Achievements</h2>
+        <div class="section-content">
+            <div class="achievement">
+                <p>[Placeholder: Won 1st Place in National Hackathon for innovative solution in AI-driven analytics, 2023]</p>
+            </div>
+            <div class="achievement">
+                <p>[Placeholder: Recognized as Top Performer in BDFL Technologies for outstanding project delivery, 2021]</p>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- <section id="certifications" class="certifications">
+        <h2>Certifications</h2>
+        <div class="section-content">
+            <div class="certification">
+                <h3>AWS Certified Solutions Architect</h3>
+                <p>Issued by: Amazon Web Services</p>
+                <p>Date: [Placeholder: Insert date, e.g., June 2022]</p>
+            </div>
+            <div class="certification">
+                <h3>Certified ScrumMaster (CSM)</h3>
+                <p>Issued by: Scrum Alliance</p>
+                <p>Date: [Placeholder: Insert date, e.g., March 2021]</p>
+            </div>
+        </div>
+    </section> -->
+
+    <section id="skills" class="skills">
+        <h2>Technical Acumen</h2>
+        <div class="section-content">
+            <div class="skills-grid">
+                <div class="skill-card">Python</div>
+                <div class="skill-card">SQL</div>
+                <div class="skill-card">NoSQL</div>
+                <div class="skill-card">REST APIs</div>
+                <div class="skill-card">Redis</div>
+                <div class="skill-card">AWS (Lambda, DynamoDB, API Gateway, WAF, CloudWatch, SDK)</div>
+                <div class="skill-card">Celery</div>
+                <div class="skill-card">Elasticsearch</div>
+                <div class="skill-card">Django</div>
+                <div class="skill-card">Flask</div>
+                <div class="skill-card">FastAPI</div>
+                <div class="skill-card">ETS</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="expertise" class="expertise">
+        <h2>Expertise</h2>
+        <div class="section-content">
+            <div class="expertise-grid">
+                <div class="expertise-card">Server-Side Development</div>
+                <div class="expertise-card">Website Optimization</div>
+                <div class="expertise-card">Web Application Security</div>
+                <div class="expertise-card">Application Frameworks/Libraries</div>
+                <div class="expertise-card">API Development/Database Management</div>
+                <div class="expertise-card">Integration with External Systems</div>
+                <div class="expertise-card">Error Handling and Logging</div>
+                <div class="expertise-card">Version Control and Deployment</div>
+                <div class="expertise-card">Testing and Debugging</div>
+                <div class="expertise-card">Security Testing and Vulnerability Assessment</div>
+                <div class="expertise-card">Documentation</div>
+                <div class="expertise-card">Troubleshooting and Support</div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="contact" class="contact">
+        <h2>Contact</h2>
+        <div class="section-content">
+            <p>
+                <a href="tel:+918309177006">+91 8309177006</a> |
+                <a href="mailto:sathpadisaikiran@gmail.com">sathpadisaikiran@gmail.com</a> |
+                <a href="https://linkedin.com/in/salkiran-sathradi/" target="_blank">LinkedIn</a>
+            </p>
+        </div>
+    </section>
+
+    <script>
+        // Smooth Scroll
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Scroll Animations
+        const sections = document.querySelectorAll('.section-content');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    const cards = entry.target.querySelectorAll('.edu, .job, .project, .achievement, .certification, .expertise-card, .skill-card');
+                    cards.forEach((card, index) => {
+                        setTimeout(() => {
+                            card.classList.add('visible');
+                        }, index * 200);
+                    });
+                }
+            });
+        }, { threshold: 0.2 });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
