@@ -1221,6 +1221,23 @@
         sections.forEach(section => {
             observer.observe(section);
         });
+
+        // Close Mobile Navbar on Outside Click
+        document.addEventListener('click', (e) => {
+            const navToggle = document.getElementById('nav-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            const hamburger = document.querySelector('.hamburger');
+            if (navToggle.checked) {
+                const isOutside = !navLinks.contains(e.target) &&
+                                !hamburger.contains(e.target) &&
+                                e.target !== navToggle;
+                if (isOutside) {
+                    setTimeout(() => {
+                        navToggle.checked = false;
+                    }, 0);
+                }
+            }
+        }, { capture: true });
     </script>
 </body>
 </html>
