@@ -1208,15 +1208,15 @@
                         }, index * (card.classList.contains('expertise-card') ? 50 : 200));
                     });
                 } 
-                // else {
-                //     entry.target.classList.remove('visible');
-                //     const cards = entry.target.querySelectorAll('.edu, .job, .project, .achievement, .certification, .skill-cell');
-                //     cards.forEach(card => {
-                //         card.classList.remove('visible');
-                //     });
-                // }
+                else {
+                    entry.target.classList.remove('visible');
+                    const cards = entry.target.querySelectorAll('.edu, .job, .project, .achievement, .certification, .skill-cell');
+                    cards.forEach(card => {
+                        card.classList.remove('visible');
+                    });
+                }
             });
-        }, { threshold: 0.2 });
+        }, { threshold: 0.1, rootMargin:'-50px 0px 0px 0px' });
 
         sections.forEach(section => {
             observer.observe(section);
