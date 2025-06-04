@@ -858,6 +858,14 @@
             .education .edu, .experience .job, .projects .project {
                 padding: 1.2rem;
             }
+            .expertise-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 0.8rem;
+            }
+            .expertise-card {
+                padding: 1rem;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
@@ -1058,54 +1066,49 @@
     <section id="skills" class="skills">
         <h2>Technical Acumen</h2>
         <div class="section-content">
-            <table class="skills-table">
-                <thead>
-                    <tr>
-                        <th>Programming Languages</th>
-                        <th>Frameworks</th>
-                        <th>Databases</th>
-                        <th>Other Tools</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="skill-cell">Python</td>
-                        <td class="skill-cell">Django</td>
-                        <td class="skill-cell">NoSQL</td>
-                        <td class="skill-cell">REST APIs</td>
-                    </tr>
-                    <tr>
-                        <td class="skill-cell">SQL</td>
-                        <td class="skill-cell">Flask</td>
-                        <td class="skill-cell">PostgreSQL</td>
-                        <td class="skill-cell">AWS (Lambda, ECS, EC2, S3, Cognito, EventBridge, CloudWatch)</td>
-                    </tr>
-                    <tr>
-                        <td class="skill-cell">Node.js</td>
-                        <td class="skill-cell">FastAPI</td>
-                        <td class="skill-cell">Elasticsearch</td>
-                        <td class="skill-cell">RabbitMQ</td>
-                    </tr>
-                    <tr>
-                        <td class="skill-cell"></td>
-                        <td class="skill-cell">React.js</td>
-                        <td class="skill-cell">DynamoDB</td>
-                        <td class="skill-cell">Celery</td>
-                    </tr>
-                    <tr>
-                        <td class="skill"></td>
-                        <td class="skill"></td>
-                        <td class="skill"></td>
-                        <td class="skill-cell">Git</td>
-                    </tr>
-                    <tr>
-                        <td class="skill"></td>
-                        <td class="skill"></td>
-                        <td class="skill"></td>
-                        <td class="skill-cell">ETS</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="expertise-grid">
+                <!-- Programming Languages -->
+                <div class="expertise-card">Python</div>
+                <div class="expertise-card">JavaScript</div>
+                <div class="expertise-card">C++</div>
+                <div class="expertise-card">Linux</div>
+                <!-- Frameworks -->
+                <div class="expertise-card">FastAPI</div>
+                <div class="expertise-card">Node.js</div>
+                <div class="expertise-card">Express.js</div>
+                <div class="expertise-card">React.js</div>
+                <div class="expertise-card">Django</div>
+                <div class="expertise-card">Vue.js</div>
+                <!-- DevOps/Infrastructure -->
+                <div class="expertise-card">RabbitMQ</div>
+                <div class="expertise-card">Kafka</div>
+                <div class="expertise-card">AWS SQS</div>
+                <div class="expertise-card">Terraform</div>
+                <div class="expertise-card">Serverless</div>
+                <div class="expertise-card">Docker</div>
+                <div class="expertise-card">Jenkins</div>
+                <div class="expertise-card">Agile</div>
+                <div class="expertise-card">CI/CD</div>
+                <div class="expertise-card">Celery</div>
+                <!-- Databases -->
+                <div class="expertise-card">PostgreSQL</div>
+                <div class="expertise-card">MySQL</div>
+                <div class="expertise-card">SQL Server</div>
+                <div class="expertise-card">Redshift</div>
+                <div class="expertise-card">MongoDB</div>
+                <div class="expertise-card">Elasticsearch</div>
+                <div class="expertise-card">DynamoDB</div>
+                <!-- APIs -->
+                <div class="expertise-card">REST</div>
+                <div class="expertise-card">GraphQL</div>
+                <!-- Monitoring -->
+                <div class="expertise-card">Sentry</div>
+                <div class="expertise-card">New Relic</div>
+                <!-- Version Control -->
+                <div class="expertise-card">Git</div>
+                <!-- Testing -->
+                <div class="expertise-card">Unit Testing</div>
+            </div>
         </div>
     </section>
 
@@ -1114,17 +1117,15 @@
         <div class="section-content">
             <div class="expertise-grid">
                 <div class="expertise-card">Server-Side Development</div>
-                <div class="expertise-card">Website Optimization</div>
-                <div class="expertise-card">Web Application Security</div>
-                <div class="expertise-card">Application Frameworks/Libraries</div>
-                <div class="expertise-card">API Development/Database Management</div>
-                <div class="expertise-card">Integration with External Systems</div>
-                <div class="expertise-card">Error Handling and Logging</div>
-                <div class="expertise-card">Version Control and Deployment</div>
+                <div class="expertise-card">Frameworks and Libraries</div>
+                <div class="expertise-card">API Development</div>
+                <div class="expertise-card">Database Management</div>
+                <div class="expertise-card">Cloud Infrastructure</div>
+                <div class="expertise-card">DevOps Practices</div>
+                <div class="expertise-card">Scalability and Performance</div>
+                <div class="expertise-card">Application Security</div>
                 <div class="expertise-card">Testing and Debugging</div>
-                <div class="expertise-card">Security Testing and Vulnerability Assessment</div>
-                <div class="expertise-card">Documentation</div>
-                <div class="expertise-card">Troubleshooting and Support</div>
+                <div class="expertise-card">Version Control and CI/CD</div>
             </div>
         </div>
     </section>
@@ -1204,11 +1205,12 @@
                     cards.forEach((card, index) => {
                         setTimeout(() => {
                             card.classList.add('visible');
-                        }, index * 200);
+                        }, index * (card == ".expertise-card" ? 100 : 200));
                     });
-                } else {
+                } 
+                else {
                     entry.target.classList.remove('visible');
-                    const cards = entry.target.querySelectorAll('.edu, .job, .project, .achievement, .certification, .expertise-card, .skill-cell');
+                    const cards = entry.target.querySelectorAll('.edu, .job, .project, .achievement, .certification, .skill-cell');
                     cards.forEach(card => {
                         card.classList.remove('visible');
                     });
