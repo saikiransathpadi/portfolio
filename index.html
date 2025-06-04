@@ -1205,16 +1205,16 @@
                     cards.forEach((card, index) => {
                         setTimeout(() => {
                             card.classList.add('visible');
-                        }, index * (card == ".expertise-card" ? 100 : 200));
+                        }, index * (card.classList.contains('expertise-card') ? 50 : 200));
                     });
                 } 
-                else {
-                    entry.target.classList.remove('visible');
-                    const cards = entry.target.querySelectorAll('.edu, .job, .project, .achievement, .certification, .skill-cell');
-                    cards.forEach(card => {
-                        card.classList.remove('visible');
-                    });
-                }
+                // else {
+                //     entry.target.classList.remove('visible');
+                //     const cards = entry.target.querySelectorAll('.edu, .job, .project, .achievement, .certification, .skill-cell');
+                //     cards.forEach(card => {
+                //         card.classList.remove('visible');
+                //     });
+                // }
             });
         }, { threshold: 0.2 });
 
