@@ -27,12 +27,17 @@
             padding: 1rem 2rem;
             z-index: 1000;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
-        nav a {
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a {
             color: #f3c680;
             text-decoration: none;
             margin: 0 1.5rem;
@@ -41,7 +46,7 @@
             transition: color 0.3s ease, transform 0.3s ease;
         }
 
-        nav a::after {
+        .nav-links a::after {
             content: '';
             position: absolute;
             width: 0;
@@ -52,13 +57,33 @@
             transition: width 0.3s ease;
         }
 
-        nav a:hover::after {
+        .nav-links a:hover::after {
             width: 100%;
         }
 
-        nav a:hover {
+        .nav-links a:hover {
             color: #2dd4bf;
             transform: translateY(-2px);
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #f3c680;
+            margin: 2px 0;
+            transition: all 0.3s ease;
+        }
+
+        #nav-toggle {
+            display: none;
         }
 
         /* Hero Section */
@@ -178,7 +203,7 @@
             position: relative;
             opacity: 0;
             transform: perspective(1000px) rotateY(-90deg);
-            transition: transform 0.8s ease, opacity 0.8s ease, box-shadow 0.3s ease, scale 0.0s ease;
+            transition: transform 0.8s ease, opacity 0.8s ease, box-shadow 0.3s ease, scale 0.3s ease;
             overflow: hidden;
         }
 
@@ -196,8 +221,12 @@
         }
 
         .education .edu:hover::before {
-            transform: translateY(100%);
-            box-shadow: 0 0 20px rgba(45, 212, 191, 0.3);
+            transform: translateX(100%);
+        }
+
+        .education .edu:hover {
+            transform: perspective(1000px) rotateY(0deg) scale(1.05);
+            box-shadow: 0 8px 30px rgba(45, 212, 191, 0.3);
             border: 1px solid rgba(243, 198, 128, 0.5);
         }
 
@@ -644,9 +673,34 @@
                 font-size: 1.3rem;
             }
 
-            nav a {
-                margin: 0 0.8rem;
-                font-size: 1rem;
+            /* Mobile Navbar */
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 250px;
+                background: rgba(22, 33, 38, 0.98);
+                flex-direction: column;
+                justify-content: center;
+                align-items: flex-start;
+                padding: 2rem;
+                transition: right 0.3s ease;
+            }
+
+            #nav-toggle:checked ~ .nav-links {
+                right: 0;
+            }
+
+            .nav-links a {
+                margin: 1rem 0;
+                font-size: 1.2rem;
+                width: 100%;
+                padding: 0.5rem;
             }
 
             section {
@@ -676,16 +730,24 @@
 </head>
 <body>
     <nav>
-        <a href="#hero">Home</a>
-        <a href="#about">About</a>
-        <a href="#experience">Experience</a>
-        <a href="#education">Education</a>
-        <a href="#projects">Projects</a>
-        <!-- <a href="#achievements">Achievements</a> -->
-        <!-- <a href="#certifications">Certifications</a> -->
-        <a href="#skills">Skills</a>
-        <a href="#expertise">Expertise</a>
-        <a href="#contact">Contact</a>
+        <input type="checkbox" id="nav-toggle">
+        <label for="nav-toggle" class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+        <div class="nav-links">
+            <a href="#hero">Home</a>
+            <a href="#about">About</a>
+            <a href="#experience">Experience</a>
+            <a href="#education">Education</a>
+            <a href="#projects">Projects</a>
+            <!-- <a href="#achievements">Achievements</a> -->
+            <!-- <a href="#certifications">Certifications</a> -->
+            <a href="#skills">Skills</a>
+            <a href="#expertise">Expertise</a>
+            <a href="#contact">Contact</a>
+        </div>
     </nav>
 
     <section id="hero" class="hero">
@@ -787,7 +849,7 @@
             <div class="project">
                 <h3>Project 1</h3>
                 <p>[Placeholder Description: Describe the project, its purpose, and key features. Highlight the problem solved and impact achieved.]</p>
-                <p><strong>Technologies Used:</strong> [Placeholder: List technologies, e.g., Python, Django, AWS, React]</p>
+                <p><strong>Technologies Used:</strong> [Placeholder: List technologies, e.g., Python, Django, AWS, S3]</p>
                 <p>
                     <a href="[Placeholder: Insert GitHub link]" target="_blank">Source Code</a>
                     <a href="[Placeholder: Insert live demo link]" target="_blank">Live Demo</a>
@@ -855,8 +917,8 @@
                     <tr>
                         <td class="skill-cell">SQL</td>
                         <td class="skill-cell">Flask</td>
-                        <td class="skill-cell">Redis</td>
-                        <td class="skill-cell">AWS (Lambda, ECS, EC2, S3, Cognito, EventBridge, Amplify, AppSync)</td>
+                        <td class="skill-cell">PostgreSQL</td>
+                        <td class="skill-cell">AWS (Lambda, ECS, EC2, S3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,24,25,26,27,28,29,30,31,32,33,34,35,36,37</td> Cognito, EventBridge, CloudWatch)</td>
                     </tr>
                     <tr>
                         <td class="skill-cell">Node.js</td>
@@ -871,15 +933,15 @@
                         <td class="skill-cell">Celery</td>
                     </tr>
                     <tr>
-                        <td class="skill-cell"></td>
-                        <td class="skill-cell"></td>
-                        <td class="skill-cell"></td>
+                        <td class="skill"></td>
+                        <td class="skill"></td>
+                        <td class="skill"></td>
                         <td class="skill-cell">Git</td>
                     </tr>
                     <tr>
-                        <td class="skill-cell"></td>
-                        <td class="skill-cell"></td>
-                        <td class="skill-cell"></td>
+                        <td class="skill"></td>
+                        <td class="skill"></td>
+                        <td class="skill"></td>
                         <td class="skill-cell">ETS</td>
                     </tr>
                 </tbody>
@@ -913,7 +975,7 @@
             <p>
                 <a href="tel:+918309177006">+91 8309177006</a> |
                 <a href="mailto:sathpadisaikiran@gmail.com">sathpadisaikiran@gmail.com</a> |
-                <a href="https://linkedin.com/in/salkiran-sathradi/" target="_blank">LinkedIn</a>
+                <a href="https://linkedin.com/in/saikiran-sathpadi/" target="_blank">LinkedIn</a>
             </p>
         </div>
     </section>
@@ -926,6 +988,8 @@
                 const targetId = this.getAttribute('href').substring(1);
                 const targetSection = document.getElementById(targetId);
                 targetSection.scrollIntoView({ behavior: 'smooth' });
+                // Close mobile menu after clicking a link
+                document.getElementById('nav-toggle').checked = false;
             });
         });
 
